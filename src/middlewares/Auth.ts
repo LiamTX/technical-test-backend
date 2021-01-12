@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken';
 import knex from '../database/connection';
-import { Request, Response, NextFunction } from 'express';
+import { Response, NextFunction } from 'express';
 
-const auth = async (req: Request, res: Response, next: NextFunction) => {
+const auth = async (req: any, res: Response, next: NextFunction) => {
     const header = req.header('Authorization');
 
     if (!header) {
@@ -21,14 +21,16 @@ const auth = async (req: Request, res: Response, next: NextFunction) => {
         return res.status(401).json({ error: 'unauthorized' });
     };
 
-    // jwt.verify(token, 'S3cr3t', async (err, decoded) => {
-    //     if (err) return res.status(401).json({ error: 'unauthorized' });
+    jwt.verify(token, 'S3cr3t', async (err: any, decoded: any) => {
+        if (err) return res.status(401).json({ error: 'unauthorized' });
 
-    //     const user = await knex('users').where('nickname', decoded.nickname).first();
-    //     const user = await User.findOne({ where: { email: decoded.email } });
-    //     if (!user) return res.status(401).json({ error: 'unauthorized' });
+        const user = await knex('users').where('id', decoded.id).first();
 
-    //     req.userEmail = decoded.email;
-    //     return next();
-    // });
-}
+        if (!user) return res.status(401).json({ error: 'unauthorized' });
+
+        req.user_id = decoded.id;
+        return next();
+    });
+};
+
+export default auth;
