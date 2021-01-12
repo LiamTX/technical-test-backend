@@ -22,8 +22,7 @@ class CarController {
                 name,
                 fabrication_date,
                 price,
-                color,
-                user_id: req.user_id
+                color
             });
 
             return res.sendStatus(200);
@@ -53,8 +52,6 @@ class CarController {
             const car = await knex('cars').where('id', car_id).first();
 
             if (!car) return res.status(404).send({ error: 'car not found' });
-
-            if (car.user_id !== req.user_id) return res.status(404).send({ error: 'unauthorized' });
 
             await knex('cars').where('id', car.id).del();
 
