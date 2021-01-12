@@ -14,14 +14,15 @@ router
     .post('/users/create', UserController.create)
     .post('/users/auth', UserController.auth);
 
-
 //Rotas privadas <-------
 router.use(auth);
 
 router
     //Cars
-    .get('/users/findAll', UserController.index)
-    //Users
+    .get('/cars/:car_id/find', CarController.findOne)
     .post('/cars/create', CarController.create)
+    .delete('/cars/:car_id/delete', CarController.delete)
+    //Users
+    .get('/users/findAll', UserController.index);
 
 export default router;

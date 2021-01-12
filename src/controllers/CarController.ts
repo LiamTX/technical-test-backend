@@ -12,21 +12,51 @@ class CarController {
         }
     }
 
-    async create(req: Request, res: Response) {
+    async create(req: any, res: Response) {
         try {
-            const { brand, model, name, price, color } = req.body;
+            const { brand, model, name, fabrication_date, price, color } = req.body;
 
-            const date = new Date();
-        
             await knex('cars').insert({
                 brand,
                 model,
                 name,
-                fabrication_date: date,
+                fabrication_date,
                 price,
                 color,
-                user_id: 1
+                user_id: req.user_id
             });
+
+            return res.sendStatus(200);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async findOne(req: Request, res: Response) {
+        try {
+            const { car_id } = req.params;
+
+            const car = await knex('cars').where('id', car_id).first();
+
+            if (!car) return res.status(404).send({ error: 'car not found' });
+
+            return res.json(car);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async delete(req: any, res: Response) {
+        try {
+            const { car_id } = req.params;
+
+            const car = await knex('cars').where('id', car_id).first();
+
+            if (!car) return res.status(404).send({ error: 'car not found' });
+
+            if (car.user_id !== req.user_id) return res.status(404).send({ error: 'unauthorized' });
+
+            await knex('cars').where('id', car.id).del();
 
             return res.sendStatus(200);
         } catch (error) {
