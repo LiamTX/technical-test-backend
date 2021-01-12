@@ -2,10 +2,10 @@ import { Request, Response } from 'express';
 import knex from '../database/connection';
 import bcrypt from 'bcrypt';
 
-class RoomsController {
+class UserController {
     async index(req: Request, res: Response) {
         try {
-            const users = knex('users');
+            const users = await knex('users');
 
             return res.json(users);
         } catch (error) {
@@ -19,7 +19,7 @@ class RoomsController {
 
             const hash = await bcrypt.hash(password, 10);
 
-            const user = await knex('users').insert({
+            await knex('users').insert({
                 nickname,
                 email,
                 password: hash
@@ -32,4 +32,4 @@ class RoomsController {
     }
 }
 
-export default new RoomsController();
+export default new UserController();
