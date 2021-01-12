@@ -25,7 +25,7 @@ class CarController {
                 color
             });
 
-            return res.sendStatus(200);
+            return res.send();
         } catch (error) {
             console.log(error);
         }
