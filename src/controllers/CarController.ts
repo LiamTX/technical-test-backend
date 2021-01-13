@@ -12,7 +12,7 @@ class CarController {
         }
     }
 
-    async create(req: any, res: Response) {
+    async create(req: Request, res: Response) {
         try {
             const { brand, model, name, fabrication_date, price, color } = req.body;
 
@@ -45,7 +45,32 @@ class CarController {
         }
     }
 
-    async delete(req: any, res: Response) {
+    async edit(req: Request, res: Response) {
+        try {
+            const { id, brand, model, name, fabrication_date, price, color } = req.body;
+
+            const car = await knex('cars').where('id', id).first();
+
+            if (!car) return res.status(404).send({ error: 'not found' });
+
+            await knex('cars')
+                .where('id', car.id)
+                .update({
+                    brand,
+                    model,
+                    name,
+                    fabrication_date,
+                    price,
+                    color
+                });
+
+            return res.send();
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async delete(req: Request, res: Response) {
         try {
             const { car_id } = req.params;
 
