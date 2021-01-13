@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import knex from '../database/connection';
 
 class CarController {
+    //Listagem de todos os carros
     async index(req: Request, res: Response) {
         try {
             const cars = await knex('cars');
@@ -12,6 +13,11 @@ class CarController {
         }
     }
 
+    /*
+        Cadastro de carros, deve ser enviado junto ao corpo da requisição um json
+        com as seguintes informações do carro -> brand: string, model: string, name: string, 
+        fabrication_date: string, price: float, color: string
+    */
     async create(req: Request, res: Response) {
         try {
             const { brand, model, name, fabrication_date, price, color } = req.body;
@@ -31,6 +37,10 @@ class CarController {
         }
     }
 
+    /*
+        Ache um carro em especifico, deve ser enviado junto aos params da requisição o 
+        id do carro que deseja achar
+    */
     async findOne(req: Request, res: Response) {
         try {
             const { car_id } = req.params;
@@ -45,6 +55,11 @@ class CarController {
         }
     }
 
+    /*
+        Edição das informações de um carro, deve ser enviado junto ao corpo da requisição um json
+        com as seguintes informações do carro -> id: integer, brand: string, model: string, 
+        name: string, fabrication_date: string, price: float, color: string
+    */
     async edit(req: Request, res: Response) {
         try {
             const { id, brand, model, name, fabrication_date, price, color } = req.body;
@@ -70,6 +85,10 @@ class CarController {
         }
     }
 
+    /*
+        Delete um carro, deve ser enviado junto aos params da requisição o id do carro
+        que deseja deletar
+    */
     async delete(req: Request, res: Response) {
         try {
             const { car_id } = req.params;

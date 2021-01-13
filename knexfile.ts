@@ -1,4 +1,5 @@
 // Arquivo de configuração do knex.
+
 import path from 'path'
 
 module.exports = {
