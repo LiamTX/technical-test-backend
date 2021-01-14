@@ -4,7 +4,9 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "dev": "ts-node-dev --ignore-watch node_modules src/index.ts"
+    "start": "node ./build/src/index.js",
+    "dev": "ts-node-dev --ignore-watch node_modules src/index.ts",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
