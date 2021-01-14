@@ -7,7 +7,7 @@ const router = Router();
 router
     //Liste todos carros
     .get('/api/cars/all', CarController.index)
-    //List um carro especifico
+    //Liste um carro especifico
     .get('/api/cars/:car_id/find', CarController.findOne)
     //Cadastre um carro
     .post('/api/cars/create', CarController.create)
