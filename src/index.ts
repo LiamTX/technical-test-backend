@@ -11,4 +11,4 @@ app.use(router);
 app.use(errorHandlerApi)
 
 const port = 3333 || process.env.PORT;
-app.listen(port, () => console.log('Started!'));
+app.listen(port, () => console.log(`Server running on http://localhost:${port}`));
