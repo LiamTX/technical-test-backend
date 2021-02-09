@@ -7,8 +7,8 @@ Para executar este projeto no modo de desenvolvimento, você precisará ter um a
 ### Instalação
 #### Clonando o repositório
 ```
-$ git clone https://github.com/LiamTX/poetize-server.git
-$ cd poetize-server/app
+$ git clone https://github.com/LiamTX/technical-test-backend.git
+$ cd technical-test-backend/
 ```
 
 #### Instalando dependências
