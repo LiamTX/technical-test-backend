@@ -24,6 +24,11 @@ $ npm install
 
 ### Iniciando o projeto
 Com todas as dependências e as configurações feitas, agora você pode executar a api:
+Em dev mode:
 ```
 npm run dev
+```
+Em prod mode:
+```
+npm start
 ```
